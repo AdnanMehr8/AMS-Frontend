@@ -131,78 +131,79 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        {/* Redirect '/' to login if not authenticated */}
+        {/* Default route for unauthenticated users */}
         {!isAuth && <Route path="/" element={<Navigate to="/login" />} />}
-        
-        {/* Redirect '/' to student or admin dashboard based on role */}
+
+        {/* Role-based redirects */}
         {isAuth && role === 'student' && <Route path="/" element={<Navigate to="/student-dashboard" />} />}
         {isAuth && role === 'admin' && <Route path="/" element={<Navigate to="/admin-dashboard" />} />}
-        
-        {/* Routes for authentication */}
+
+        {/* Authentication routes */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        
+
         {/* Protected routes */}
         <Route path="/student-dashboard" element={
           <Protected isAuth={isAuth}>
             <StudentDashboard />
           </Protected>
         } />
-        
-        <Route path="/update-profile" element={
-          <Protected isAuth={isAuth}>
-            <EditProfile />
-          </Protected>
-        } />
-        
+
         <Route path="/admin-dashboard" element={
           <Protected isAuth={isAuth}>
             <AdminDashboard />
           </Protected>
         } />
-        
+
+        <Route path="/update-profile" element={
+          <Protected isAuth={isAuth}>
+            <EditProfile />
+          </Protected>
+        } />
+
         <Route path="/submit-leave" element={
           <Protected isAuth={isAuth}>
             <RequestLeave />
           </Protected>
         } />
-        
+
         <Route path="/leave-requests" element={
           <Protected isAuth={isAuth}>
             <ViewLeaves />
           </Protected>
         } />
-        
+
         <Route path="/mark" element={
           <Protected isAuth={isAuth}>
             <MarkAttendance />
           </Protected>
         } />
-        
+
         <Route path="/all-attendance" element={
           <Protected isAuth={isAuth}>
             <ViewAttendance />
           </Protected>
         } />
-        
+
         <Route path="/leave" element={
           <Protected isAuth={isAuth}>
             <ApproveLeaveRequests />
           </Protected>
         } />
-        
+
         <Route path="/students-attendance/manage" element={
           <Protected isAuth={isAuth}>
             <ManageAttendance />
           </Protected>
         } />
-        
+
         <Route path="/grading" element={
           <Protected isAuth={isAuth}>
             <SetGradingCriteria />
           </Protected>
         } />
-        
+
+        {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />
@@ -211,4 +212,3 @@ function App() {
 }
 
 export default App;
-

@@ -269,11 +269,14 @@ api.interceptors.response.use(
       ) {
         originalReq._isRetry = true;
   
-        try {
-          await api.post(`/refresh`)
-  
-          return api.request(originalReq);
-        } catch (error) {
+         try {
+            await axios.get(`${process.env.REACT_APP_INTERNAL_API_PATH}/refresh`, {
+              withCredentials: true,
+            });
+    
+            return api.request(originalReq);
+        }
+        catch (error) {
           return error;
         }
       }

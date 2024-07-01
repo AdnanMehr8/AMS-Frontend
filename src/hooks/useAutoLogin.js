@@ -23,7 +23,7 @@ function useAutoLogin() {
           dispatch(setUser(user));
         }
       } catch (error) {
-        console.error('no user')
+        console.error('AutoLogin error: ', error)
       } finally {
         setLoading(false);
       }
